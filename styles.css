@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #f0f0f0;
+    height: 100vh;
+}
+
+.panel {
+    width: 90%;
+    max-width: 400px;
+    margin: 5px 0;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 8px;
+}
+
+#bonusPanel{
+    margin-bottom: 30px;
+}
+
+.panel::before {
+    content: "Pontuação";
+    display: block;
+    font-size: 1rem;
+    color: #bbb;
+    margin-bottom: 5px;
+}
+
+#bonusPanel::before {
+    content: "Bônus aplicado";
+}
+
+.counter-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.counter {
+    color: black;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+.white { background-color: #ffffff; color: #000; }
+.pink { background-color: #ff2fcb; }
+.blue { background-color: #5e42ff; }
+.green { background-color: #23aa45; }
+.red { background-color: #ff2525; }
+.orange { background-color: #ff9900; }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.action-button:active {
+    transform: scale(0.95);
+}
+
+.clear-button {
+    background-color: #ff4500;
+}

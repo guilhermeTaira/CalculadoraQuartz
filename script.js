@@ -132,6 +132,7 @@ function calculateBonusSixDifferentCrystals(){
 function clearCounters() {
     counters.forEach(counter => {
         counter.count = 0;
+        counter.points = 0;
         document.getElementById(`counter-${counter.color}`).textContent = 0;
     });
     document.getElementById('resultPanel').textContent = 0;

@@ -45,7 +45,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     font-size: 1.5rem;
     font-weight: bold;
@@ -73,7 +73,7 @@ body {
 
 .white { background-color: #ffffff; color: #000; }
 .pink { background-color: #ff2fcb; }
-.blue { background-color: #5e42ff; }
+.blue { background-color: #2a39ff; }
 .green { background-color: #23aa45; }
 .red { background-color: #ff2525; }
 .orange { background-color: #ff9900; }

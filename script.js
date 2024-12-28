@@ -67,9 +67,9 @@ function calculateTotal() {
 
 function calculateBonusThreeEqualCrystals(){
     const minPointsColor = quartzList
-        .filter(counter => counter.count === 3)
-        .reduce((minObj, counter) => {
-            return (counter.points < minObj.points) ? counter : minObj;
+        .filter(quartz => quartz.count === 3)
+        .reduce((minObj, quartz) => {
+            return (quartz.points < minObj.points) ? quartz : minObj;
         }, { points: Infinity });
 
     const color = minPointsColor.points !== Infinity ? minPointsColor.color : '';
@@ -78,9 +78,9 @@ function calculateBonusThreeEqualCrystals(){
         return 0;
     } else {
         const maxPoints = quartzList
-            .filter(counter => counter.color !== color)
-            .reduce((maxObj, counter) => {
-                return (counter.points > maxObj.points) ? counter : maxObj;
+            .filter(quartz => quartz.color !== color)
+            .reduce((maxObj, quartz) => {
+                return (quartz.points > maxObj.points) ? quartz : maxObj;
             }, { points: -Infinity });
 
         const points = maxPoints.points !== -Infinity ? maxPoints.points : 0;
@@ -91,9 +91,9 @@ function calculateBonusThreeEqualCrystals(){
 
 function calculateBonusFourEqualCrystals(){
     const minPointsColor = quartzList
-        .filter(counter => counter.count === 4)
-        .reduce((minObj, counter) => {
-            return (counter.points < minObj.points) ? counter : minObj;
+        .filter(quartz => quartz.count === 4)
+        .reduce((minObj, quartz) => {
+            return (quartz.points < minObj.points) ? quartz : minObj;
         }, { points: Infinity });
 
     const color = minPointsColor.points !== Infinity ? minPointsColor.color : '';
@@ -129,11 +129,11 @@ function calculateBonusSixDifferentCrystals(){
         return 0;
 }
 
-function clearquartzList() {
-    quartzList.forEach(counter => {
-        counter.count = 0;
-        counter.points = 0;
-        document.getElementById(`counter-${counter.color}`).textContent = 0;
+function clearCounters() {
+    quartzList.forEach(quartz => {
+        quartz.count = 0;
+        quartz.points = 0;
+        document.getElementById(`counter-${quartz.color}`).textContent = 0;
     });
     document.getElementById('resultPanel').textContent = 0;
     document.getElementById('bonusPanel').textContent = '-';

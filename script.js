@@ -1,4 +1,4 @@
-const counters = [
+const quartzList = [
     { color: "white", value: 1, count: 0, points: 0 },
     { color: "pink", value: 2, count: 0, points: 0 },
     { color: "green", value: 3, count: 0, points: 0 },
@@ -8,7 +8,7 @@ const counters = [
 ];
 
 function updateCounter(color, delta) {
-    const counterObj = counters.find(c => c.color === color);
+    const counterObj = quartzList.find(c => c.color === color);
     if (counterObj) {
         counterObj.count += delta;
         counterObj.points = (counterObj.value * counterObj.count);
@@ -21,14 +21,14 @@ function incrementCounter(color) {
 }
 
 function decrementCounter(color) {
-    const counterObj = counters.find(c => c.color === color);
+    const counterObj = quartzList.find(c => c.color === color);
     if (counterObj && counterObj.count > 0) {
         updateCounter(color, -1);
     }
 }
 
 function calculateTotal() {
-    let totalPoints = counters.reduce((accumulator, counter) => {
+    let totalPoints = quartzList.reduce((accumulator, counter) => {
                     return accumulator + counter.points;
                 }, 0);
 
@@ -66,7 +66,7 @@ function calculateTotal() {
 }
 
 function calculateBonusThreeEqualCrystals(){
-    const minPointsColor = counters
+    const minPointsColor = quartzList
         .filter(counter => counter.count === 3)
         .reduce((minObj, counter) => {
             return (counter.points < minObj.points) ? counter : minObj;
@@ -77,7 +77,7 @@ function calculateBonusThreeEqualCrystals(){
     if (color == '') {
         return 0;
     } else {
-        const maxPoints = counters
+        const maxPoints = quartzList
             .filter(counter => counter.color !== color)
             .reduce((maxObj, counter) => {
                 return (counter.points > maxObj.points) ? counter : maxObj;
@@ -90,7 +90,7 @@ function calculateBonusThreeEqualCrystals(){
 }
 
 function calculateBonusFourEqualCrystals(){
-    const minPointsColor = counters
+    const minPointsColor = quartzList
         .filter(counter => counter.count === 4)
         .reduce((minObj, counter) => {
             return (counter.points < minObj.points) ? counter : minObj;
@@ -101,7 +101,7 @@ function calculateBonusFourEqualCrystals(){
     if (color == '') {
         return 0;
     } else {
-        const topTwoPointsSum = counters
+        const topTwoPointsSum = quartzList
             .filter(counter => counter.color !== color) 
             .sort((a, b) => b.points - a.points)
             .slice(0, 2)
@@ -112,7 +112,7 @@ function calculateBonusFourEqualCrystals(){
 }
 
 function calculateBonusFiveDifferentCrystals(){
-    const countGreaterThanOne = counters.filter(counter => counter.count >= 1).length;
+    const countGreaterThanOne = quartzList.filter(counter => counter.count >= 1).length;
 
     if (countGreaterThanOne == 5)
         return 8;
@@ -121,7 +121,7 @@ function calculateBonusFiveDifferentCrystals(){
 }
 
 function calculateBonusSixDifferentCrystals(){
-    const countGreaterThanOne = counters.filter(counter => counter.count >= 1).length;
+    const countGreaterThanOne = quartzList.filter(counter => counter.count >= 1).length;
 
     if (countGreaterThanOne == 6)
         return 12;
@@ -129,8 +129,8 @@ function calculateBonusSixDifferentCrystals(){
         return 0;
 }
 
-function clearCounters() {
-    counters.forEach(counter => {
+function clearquartzList() {
+    quartzList.forEach(counter => {
         counter.count = 0;
         counter.points = 0;
         document.getElementById(`counter-${counter.color}`).textContent = 0;

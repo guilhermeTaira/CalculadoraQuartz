@@ -45,19 +45,19 @@ function calculateTotal() {
         switch (maxBonus) {
             case bonusThreeEqual:
                 totalPoints += bonusThreeEqual;
-                document.getElementById('bonusPanel').textContent = "Três Cristais iguais";
+                document.getElementById('bonusPanel').textContent = "Três Cristais Iguais";
                 break;
             case bonusFourEqual:
                 totalPoints += bonusFourEqual;
-                document.getElementById('bonusPanel').textContent = "Quatro Cristais iguais";
+                document.getElementById('bonusPanel').textContent = "Quatro Cristais Iguais";
                 break;
             case bonusFiveDifferent:
                 totalPoints += bonusFiveDifferent;
-                document.getElementById('bonusPanel').textContent = "Cinco Cristais diferentes";
+                document.getElementById('bonusPanel').textContent = "Cinco Cristais Diferentes";
                 break;
             case bonusSixDifferent:
                 totalPoints += bonusSixDifferent;
-                document.getElementById('bonusPanel').textContent = "Seis Cristais diferentes";
+                document.getElementById('bonusPanel').textContent = "Seis Cristais Diferentes";
                 break;
         }
     }
@@ -67,7 +67,7 @@ function calculateTotal() {
 
 function calculateBonusThreeEqualCrystals(){
     const minPointsColor = quartzList
-        .filter(quartz => quartz.count === 3)
+        .filter(quartz => quartz.count >= 3)
         .reduce((minObj, quartz) => {
             return (quartz.points < minObj.points) ? quartz : minObj;
         }, { points: Infinity });
@@ -91,7 +91,7 @@ function calculateBonusThreeEqualCrystals(){
 
 function calculateBonusFourEqualCrystals(){
     const minPointsColor = quartzList
-        .filter(quartz => quartz.count === 4)
+        .filter(quartz => quartz.count >= 4)
         .reduce((minObj, quartz) => {
             return (quartz.points < minObj.points) ? quartz : minObj;
         }, { points: Infinity });

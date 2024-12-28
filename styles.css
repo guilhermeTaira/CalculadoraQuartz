@@ -35,7 +35,7 @@ body {
 }
 
 #bonusPanel::before {
-    content: "Bônus aplicado";
+    content: "Bônus Aplicado";
 }
 
 .counter-container {
@@ -105,4 +105,24 @@ body {
 
 .clear-button {
     background-color: #333;
+}
+
+.footer {
+    margin-top: auto;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.footer a {
+    color: #1e90ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }

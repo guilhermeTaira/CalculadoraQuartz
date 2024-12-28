@@ -28,105 +28,81 @@ function decrementCounter(color) {
 }
 
 function calculateTotal() {
-    let totalPoints = quartzList.reduce((accumulator, counter) => {
-                    return accumulator + counter.points;
-                }, 0);
+    const totalPoints = quartzList.reduce((sum, crystal) => sum + crystal.points, 0);
 
-    let bonusThreeEqual = calculateBonusThreeEqualCrystals();
-    let bonusFourEqual = calculateBonusFourEqualCrystals();
-    let bonusFiveDifferent = calculateBonusFiveDifferentCrystals();
-    let bonusSixDifferent = calculateBonusSixDifferentCrystals();
+    const bonuses = {
+        "Três Cristais Iguais": calculateBonusThreeEqualCrystals(),
+        "Quatro Cristais Iguais": calculateBonusFourEqualCrystals(),
+        "Cinco Cristais Diferentes": calculateBonusFiveDifferentCrystals(),
+        "Seis Cristais Diferentes": calculateBonusSixDifferentCrystals()
+    };
 
-    if((bonusThreeEqual + bonusFourEqual + bonusFiveDifferent + bonusSixDifferent) == 0){
-        document.getElementById('bonusPanel').textContent = "Nenhum";
-    } else{
-        let maxBonus = Math.max(bonusThreeEqual, bonusFourEqual, bonusFiveDifferent, bonusSixDifferent);
+    const maxBonusType = Object.keys(bonuses).reduce((maxType, type) => 
+        bonuses[type] > bonuses[maxType] ? type : maxType
+    , Object.keys(bonuses)[0]);
 
-        switch (maxBonus) {
-            case bonusThreeEqual:
-                totalPoints += bonusThreeEqual;
-                document.getElementById('bonusPanel').textContent = "Três Cristais Iguais";
-                break;
-            case bonusFourEqual:
-                totalPoints += bonusFourEqual;
-                document.getElementById('bonusPanel').textContent = "Quatro Cristais Iguais";
-                break;
-            case bonusFiveDifferent:
-                totalPoints += bonusFiveDifferent;
-                document.getElementById('bonusPanel').textContent = "Cinco Cristais Diferentes";
-                break;
-            case bonusSixDifferent:
-                totalPoints += bonusSixDifferent;
-                document.getElementById('bonusPanel').textContent = "Seis Cristais Diferentes";
-                break;
-        }
-    }
+    const maxBonusValue = bonuses[maxBonusType];
 
-    document.getElementById('resultPanel').textContent = totalPoints;
+    const bonusPanel = document.getElementById('bonusPanel');
+    const resultPanel = document.getElementById('resultPanel');
+
+    if (maxBonusValue === 0)
+        bonusPanel.textContent = "Nenhum";
+    else
+        bonusPanel.textContent = maxBonusType;
+
+    resultPanel.textContent = totalPoints + maxBonusValue;
 }
 
-function calculateBonusThreeEqualCrystals(){
-    const minPointsColor = quartzList
-        .filter(quartz => quartz.count >= 3)
-        .reduce((minObj, quartz) => {
-            return (quartz.points < minObj.points) ? quartz : minObj;
-        }, { points: Infinity });
+function calculateBonusThreeEqualCrystals() {
+    const eligibleCrystals = quartzList.filter(quartz => quartz.count >= 3);
 
-    const color = minPointsColor.points !== Infinity ? minPointsColor.color : '';
-
-    if (color == '') {
+    if (eligibleCrystals.length === 0)
         return 0;
-    } else {
-        const maxPoints = quartzList
-            .filter(quartz => quartz.color !== color)
-            .reduce((maxObj, quartz) => {
-                return (quartz.points > maxObj.points) ? quartz : maxObj;
-            }, { points: -Infinity });
 
-        const points = maxPoints.points !== -Infinity ? maxPoints.points : 0;
+    const eligibleCrystalWithMinPoints = eligibleCrystals.reduce((minQuartz, currentQuartz) => 
+        currentQuartz.points < minQuartz.points ? currentQuartz : minQuartz
+    );
 
-        return points;
-    }
+    const otherCrystals = quartzList.filter(quartz => quartz.color !== eligibleCrystalWithMinPoints.color);
+
+    const crystalWithMaxPoints = otherCrystals.reduce((maxQuartz, currentQuartz) => 
+        currentQuartz.points > maxQuartz.points ? currentQuartz : maxQuartz
+    );
+
+    return crystalWithMaxPoints.points;
 }
 
-function calculateBonusFourEqualCrystals(){
-    const minPointsColor = quartzList
-        .filter(quartz => quartz.count >= 4)
-        .reduce((minObj, quartz) => {
-            return (quartz.points < minObj.points) ? quartz : minObj;
-        }, { points: Infinity });
+function calculateBonusFourEqualCrystals() {
+    const eligibleCrystals = quartzList.filter(quartz => quartz.count >= 4);
 
-    const color = minPointsColor.points !== Infinity ? minPointsColor.color : '';
-
-    if (color == '') {
+    if (eligibleCrystals.length === 0)
         return 0;
-    } else {
-        const topTwoPointsSum = quartzList
-            .filter(counter => counter.color !== color) 
-            .sort((a, b) => b.points - a.points)
-            .slice(0, 2)
-            .reduce((sum, counter) => sum + counter.points, 0);
 
-        return topTwoPointsSum;
-    }
+    const eligibleCrystalWithMinPoints = eligibleCrystals.reduce((minQuartz, currentQuartz) => 
+        currentQuartz.points < minQuartz.points ? currentQuartz : minQuartz
+    );
+
+    const otherCrystals = quartzList.filter(quartz => quartz.color !== eligibleCrystalWithMinPoints.color);
+
+    const topTwoPointsSum = otherCrystals
+        .sort((a, b) => b.points - a.points)
+        .slice(0, 2)
+        .reduce((sum, quartz) => sum + quartz.points, 0);
+
+    return topTwoPointsSum;
 }
 
 function calculateBonusFiveDifferentCrystals(){
     const countGreaterThanOne = quartzList.filter(counter => counter.count >= 1).length;
 
-    if (countGreaterThanOne == 5)
-        return 8;
-    else
-        return 0;
+    return countGreaterThanOne === 5 ? 8 : 0;
 }
 
 function calculateBonusSixDifferentCrystals(){
     const countGreaterThanOne = quartzList.filter(counter => counter.count >= 1).length;
 
-    if (countGreaterThanOne == 6)
-        return 12;
-    else
-        return 0;
+    return countGreaterThanOne === 6 ? 12 : 0;
 }
 
 function clearCounters() {
